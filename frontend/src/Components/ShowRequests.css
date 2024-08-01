@@ -2,6 +2,10 @@
   margin: 20px;
 }
 
+.buttons-container {
+  display: flex;
+  gap: 20px;
+}
 .fetch-button,
 .apply-filters-button {
   margin-top: 10px;
@@ -11,11 +15,27 @@
   border: none;
   cursor: pointer;
   border-radius: 4px;
+  transition: background-color 0.3s ease-in;
 }
 
 .fetch-button:hover,
 .apply-filters-button:hover {
   background-color: #0056b3;
+}
+
+.create-request-button {
+  background-color: #4caf50;
+  margin-top: 10px;
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease-in;
+}
+
+.create-request-button:hover {
+  background-color: green;
 }
 
 .requests-table {

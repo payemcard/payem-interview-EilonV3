@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { HOST_WITH_PORT } from "../consts";
 import "./CreateRequestForm.css";
 
@@ -17,6 +18,8 @@ const CreateRequestForm = () => {
     setter(e.target.value);
   };
 
+  const navigate = useNavigate();
+  const handleShowAllRequests = () => navigate(`/show-requests`)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -54,70 +57,77 @@ const CreateRequestForm = () => {
   };
 
   return (
-    <div className="form-container">
-      <h1>Create Request Form</h1>
-      <form onSubmit={handleSubmit} className="form">
-        <div className="form-group">
-          <label>Name:</label>
-          <input
-              type="text"
-              value={name}
-              onChange={handleInputChange(setName)}
-              required
-          />
+      <div className="main-container">
+        <div className="form-container">
+          <h1>Create Request Form</h1>
+          <form onSubmit={handleSubmit} className="form">
+            <div className="form-group">
+              <label>Name:</label>
+              <input
+                  type="text"
+                  value={name}
+                  onChange={handleInputChange(setName)}
+                  required
+              />
+            </div>
+            <div className="form-group">
+              <label>Description:</label>
+              <input
+                  type="text"
+                  value={description}
+                  onChange={handleInputChange(setDescription)}
+                  required
+              />
+            </div>
+            <div className="form-group">
+              <label>Request Type:</label>
+              <select value={type} onChange={handleInputChange(setType)} required>
+                <option value="Purchase Request">Purchase</option>
+                <option value="Reimbursement Request">Reimbursement</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Amount:</label>
+              <input
+                  type="number"
+                  value={amount}
+                  onChange={handleInputChange(setAmount)}
+                  required
+              />
+            </div>
+            <div className="form-group">
+              <label>Currency:</label>
+              <select value={currency} onChange={handleInputChange(setCurrency)}>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="ILS">ILS</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Employee Name:</label>
+              <input
+                  type="text"
+                  value={employeeName}
+                  onChange={handleInputChange(setEmployeeName)}
+                  required
+              />
+            </div>
+            <button type="submit" className="submit-button">
+              Create Request
+            </button>
+          </form>
+          {responseMessage && (
+              <div className={`response-message ${responseMessage.type}`}>
+                {responseMessage.text}
+              </div>
+          )}
+
         </div>
-        <div className="form-group">
-          <label>Description:</label>
-          <input
-              type="text"
-              value={description}
-              onChange={handleInputChange(setDescription)}
-              required
-          />
-        </div>
-        <div className="form-group">
-          <label>Request Type:</label>
-          <select value={type} onChange={handleInputChange(setType)} required>
-            <option value="Purchase Request">Purchase</option>
-            <option value="Reimbursement Request">Reimbursement</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Amount:</label>
-          <input
-              type="number"
-              value={amount}
-              onChange={handleInputChange(setAmount)}
-              required
-          />
-        </div>
-        <div className="form-group">
-          <label>Currency:</label>
-          <select value={currency} onChange={handleInputChange(setCurrency)}>
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <option value="ILS">ILS</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Employee Name:</label>
-          <input
-              type="text"
-              value={employeeName}
-              onChange={handleInputChange(setEmployeeName)}
-              required
-          />
-        </div>
-        <button type="submit" className="submit-button">
-          Create Request
+        <div className="buttons-container"><button type="button" className="submit-button" onClick={handleShowAllRequests}>
+          Show All Requests
         </button>
-      </form>
-      {responseMessage && (
-          <div className={`response-message ${responseMessage.type}`}>
-            {responseMessage.text}
-          </div>
-      )}
-    </div>
+        </div>
+      </div>
   );
 };
 

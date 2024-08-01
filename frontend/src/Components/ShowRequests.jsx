@@ -49,19 +49,29 @@ const ShowRequests = () => {
   useEffect(() => {
     fetchRequests();
   }, []);
+  const handleAddRequestClick = () => {
+    navigate(`/create-request`)
+  }
+  const isRequestsAvailable = () => requests.length > 0
+
   return (
-    <div className="requests-container">
-      <h1>Show Requests</h1>
-      <Filters
-        filters={filters}
-        onFilterChange={handleFilterChange}
-        onApplyFilters={fetchRequests}
-      />
-      <button onClick={fetchRequests} className="fetch-button">
-        Fetch Requests
-      </button>
-      <table className="requests-table">
-        <thead>
+      <div className="requests-container">
+        <h1>Show Requests</h1>
+        <Filters
+            isRequestAvailable={isRequestsAvailable}
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            onApplyFilters={fetchRequests}
+        />
+        <div className="buttons-container"><button onClick={fetchRequests} className="fetch-button">
+          Fetch Requests
+        </button>
+        <button onClick={handleAddRequestClick} className="create-request-button">
+          Create Request
+        </button>
+        </div>
+        {isRequestsAvailable() && <table className="requests-table">
+          <thead>
           <tr>
             <th>Request ID</th>
             <th>Name</th>
@@ -72,8 +82,8 @@ const ShowRequests = () => {
             <th>Employee Name</th>
             <th>Status</th>
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           {requests.map((request) => (
               <tr
                   key={request.id}
@@ -90,14 +100,14 @@ const ShowRequests = () => {
                 <td>{request.status}</td>
               </tr>
           ))}
-        </tbody>
-      </table>
-      {responseMessage && (
-        <div className={`snackbar ${responseMessage.type} show`}>
-          {responseMessage.text}
-        </div>
-      )}
-    </div>
+          </tbody>
+        </table>}
+        {responseMessage && (
+            <div className={`snackbar ${responseMessage.type} show`}>
+              {responseMessage.text}
+            </div>
+        )}
+      </div>
   );
 };
 
