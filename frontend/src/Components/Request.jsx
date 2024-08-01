@@ -61,31 +61,35 @@ const Request = () => {
       <form className="single-request-form">
         <div>
           <label>ID:</label>
-          <input type="text" value={request.id} readOnly />
+          <input type="text" value={request.id} readOnly/>
         </div>
         <div>
           <label>Name:</label>
-          <input type="text" value={request.name} readOnly />
+          <input type="text" value={request.name} readOnly/>
         </div>
         <div>
           <label>Description:</label>
-          <textarea value={request.description} readOnly />
+          <textarea value={request.description} readOnly/>
+        </div>
+        <div>
+          <label>Request Type:</label>
+          <input type="text" value={request.type} readOnly/>
         </div>
         <div>
           <label>Amount:</label>
-          <input type="number" value={request.amount} readOnly />
+          <input type="number" value={request.amount} readOnly/>
         </div>
         <div>
           <label>Currency:</label>
-          <input type="text" value={request.currency} readOnly />
+          <input type="text" value={request.currency} readOnly/>
         </div>
         <div>
           <label>Employee Name:</label>
-          <input type="text" value={request.employee_name} readOnly />
+          <input type="text" value={request.employee_name} readOnly/>
         </div>
         <div>
           <label>Status:</label>
-          <input type="text" value={request.status} readOnly />
+          <input type="text" value={request.status} readOnly/>
         </div>
       </form>
       <div className="button-group">

@@ -66,6 +66,7 @@ const ShowRequests = () => {
             <th>Request ID</th>
             <th>Name</th>
             <th>Description</th>
+            <th>Request Type</th>
             <th>Amount</th>
             <th>Currency</th>
             <th>Employee Name</th>
@@ -74,19 +75,20 @@ const ShowRequests = () => {
         </thead>
         <tbody>
           {requests.map((request) => (
-            <tr
-              key={request.id}
-              onClick={() => handleRowClick(request.id)}
-              className="clickable-row"
-            >
-              <td>{request.id}</td>
-              <td>{request.name}</td>
-              <td>{request.description}</td>
-              <td>{request.amount}</td>
-              <td>{request.currency}</td>
-              <td>{request.employee_name}</td>
-              <td>{request.status}</td>
-            </tr>
+              <tr
+                  key={request.id}
+                  onClick={() => handleRowClick(request.id)}
+                  className="clickable-row"
+              >
+                <td>{request.id}</td>
+                <td>{request.name}</td>
+                <td>{request.description}</td>
+                <td>{request.type}</td>
+                <td>{request.amount}</td>
+                <td>{request.currency}</td>
+                <td>{request.employee_name}</td>
+                <td>{request.status}</td>
+              </tr>
           ))}
         </tbody>
       </table>

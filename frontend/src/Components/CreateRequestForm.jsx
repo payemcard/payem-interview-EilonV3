@@ -10,6 +10,7 @@ const CreateRequestForm = () => {
   const [currency, setCurrency] = useState("USD");
   const [employeeName, setEmployeeName] = useState("");
   const [status, setStatus] = useState("Pending");
+  const [type,setType] = useState("Purchase Request")
   const [responseMessage, setResponseMessage] = useState(null); // State to handle response message
 
   const handleInputChange = (setter) => (e) => {
@@ -26,6 +27,7 @@ const CreateRequestForm = () => {
       currency,
       employee_name: employeeName,
       status,
+      type,
     };
 
     try {
@@ -58,28 +60,35 @@ const CreateRequestForm = () => {
         <div className="form-group">
           <label>Name:</label>
           <input
-            type="text"
-            value={name}
-            onChange={handleInputChange(setName)}
-            required
+              type="text"
+              value={name}
+              onChange={handleInputChange(setName)}
+              required
           />
         </div>
         <div className="form-group">
           <label>Description:</label>
           <input
-            type="text"
-            value={description}
-            onChange={handleInputChange(setDescription)}
-            required
+              type="text"
+              value={description}
+              onChange={handleInputChange(setDescription)}
+              required
           />
+        </div>
+        <div className="form-group">
+          <label>Request Type:</label>
+          <select value={type} onChange={handleInputChange(setType)} required>
+            <option value="Purchase Request">Purchase</option>
+            <option value="Reimbursement Request">Reimbursement</option>
+          </select>
         </div>
         <div className="form-group">
           <label>Amount:</label>
           <input
-            type="number"
-            value={amount}
-            onChange={handleInputChange(setAmount)}
-            required
+              type="number"
+              value={amount}
+              onChange={handleInputChange(setAmount)}
+              required
           />
         </div>
         <div className="form-group">
@@ -93,10 +102,10 @@ const CreateRequestForm = () => {
         <div className="form-group">
           <label>Employee Name:</label>
           <input
-            type="text"
-            value={employeeName}
-            onChange={handleInputChange(setEmployeeName)}
-            required
+              type="text"
+              value={employeeName}
+              onChange={handleInputChange(setEmployeeName)}
+              required
           />
         </div>
         <button type="submit" className="submit-button">
@@ -104,9 +113,9 @@ const CreateRequestForm = () => {
         </button>
       </form>
       {responseMessage && (
-        <div className={`response-message ${responseMessage.type}`}>
-          {responseMessage.text}
-        </div>
+          <div className={`response-message ${responseMessage.type}`}>
+            {responseMessage.text}
+          </div>
       )}
     </div>
   );
