@@ -50,45 +50,50 @@ const ShowRequests = () => {
     fetchRequests();
   }, []);
   const handleAddRequestClick = () => {
-    navigate(`/create-request`)
-  }
-  const isRequestsAvailable = () => requests.length > 0
+    navigate(`/create-request`);
+  };
+  const isRequestsAvailable = () => requests.length > 0;
 
   return (
-      <div className="requests-container">
-        <h1>Show Requests</h1>
-        <Filters
-            isRequestAvailable={isRequestsAvailable}
-            filters={filters}
-            onFilterChange={handleFilterChange}
-            onApplyFilters={fetchRequests}
-        />
-        <div className="buttons-container"><button onClick={fetchRequests} className="fetch-button">
+    <div className="requests-container">
+      <h1>Show Requests</h1>
+      <Filters
+        isRequestAvailable={isRequestsAvailable}
+        filters={filters}
+        onFilterChange={handleFilterChange}
+        onApplyFilters={fetchRequests}
+      />
+      <div className="buttons-container">
+        <button onClick={fetchRequests} className="fetch-button">
           Fetch Requests
         </button>
-        <button onClick={handleAddRequestClick} className="create-request-button">
+        <button
+          onClick={handleAddRequestClick}
+          className="create-request-button"
+        >
           Create Request
         </button>
-        </div>
-        {isRequestsAvailable() && <table className="requests-table">
+      </div>
+      {isRequestsAvailable() && (
+        <table className="requests-table">
           <thead>
-          <tr>
-            <th>Request ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Request Type</th>
-            <th>Amount</th>
-            <th>Currency</th>
-            <th>Employee Name</th>
-            <th>Status</th>
-          </tr>
+            <tr>
+              <th>Request ID</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Request Type</th>
+              <th>Amount</th>
+              <th>Currency</th>
+              <th>Employee Name</th>
+              <th>Status</th>
+            </tr>
           </thead>
           <tbody>
-          {requests.map((request) => (
+            {requests.map((request) => (
               <tr
-                  key={request.id}
-                  onClick={() => handleRowClick(request.id)}
-                  className="clickable-row"
+                key={request.id}
+                onClick={() => handleRowClick(request.id)}
+                className="clickable-row"
               >
                 <td>{request.id}</td>
                 <td>{request.name}</td>
@@ -99,15 +104,16 @@ const ShowRequests = () => {
                 <td>{request.employee_name}</td>
                 <td>{request.status}</td>
               </tr>
-          ))}
+            ))}
           </tbody>
-        </table>}
-        {responseMessage && (
-            <div className={`snackbar ${responseMessage.type} show`}>
-              {responseMessage.text}
-            </div>
-        )}
-      </div>
+        </table>
+      )}
+      {responseMessage && (
+        <div className={`snackbar ${responseMessage.type} show`}>
+          {responseMessage.text}
+        </div>
+      )}
+    </div>
   );
 };
 
