@@ -123,4 +123,9 @@ let db = [
 
 let nextId = 11;
 
-module.exports = {db, nextId};
+const requestsMap = db.reduce((map, request) => {
+    map[request.id] = request;
+    return map;
+}, {});
+
+module.exports = {requestsMap, db, nextId};

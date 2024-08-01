@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { HOST_WITH_PORT } from '../consts';
-import './Requests.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { HOST_WITH_PORT } from "../consts";
+import "./Requests.css";
 
 const Request = () => {
   const { id } = useParams();
@@ -12,18 +12,45 @@ const Request = () => {
   useEffect(() => {
     const fetchRequest = async () => {
       try {
-        const response = await axios.get(`${HOST_WITH_PORT}/api/requests/${id}`);
+        const response = await axios.get(
+          `${HOST_WITH_PORT}/api/requests/${id}`,
+        );
         setRequest(response.data);
       } catch (error) {
-        setResponseMessage({ type: 'error', text: 'Error Fetching Request' });
+        setResponseMessage({ type: "error", text: "Error Fetching Request" });
         setTimeout(() => setResponseMessage(null), 3000);
-        console.error('Error fetching request', error);
+        console.error("Error fetching request", error);
       }
     };
 
     fetchRequest();
   }, [id]);
 
+  const updateRequestStatus = async (status) => {
+    try {
+      const response = await axios.put(`${HOST_WITH_PORT}/api/requests/${id}`, {
+        status,
+      });
+      setRequest(response.data);
+      setResponseMessage({
+        type: "success",
+        text: `Request ${status} Successfully!`,
+      });
+      setTimeout(() => setResponseMessage(null), 3000);
+    } catch (error) {
+      setResponseMessage({ type: "error", text: `Error Updating Request` });
+      setTimeout(() => setResponseMessage(null), 3000);
+      console.error("Error updating request", error);
+    }
+  };
+
+  const handleApprove = () => {
+    updateRequestStatus("Approved");
+  };
+
+  const handleDecline = () => {
+    updateRequestStatus("Declined");
+  };
   if (!request) {
     return <div>Loading...</div>;
   }
@@ -62,8 +89,8 @@ const Request = () => {
         </div>
       </form>
       <div className="button-group">
-        <button className="approve-button">Approve</button>
-        <button className="decline-button">Decline</button>
+        <button className="approve-button" onClick={handleApprove}>Approve</button>
+        <button className="decline-button" onClick={handleDecline}>Decline</button>
       </div>
       {responseMessage && (
         <div className={`snackbar ${responseMessage.type}`}>
